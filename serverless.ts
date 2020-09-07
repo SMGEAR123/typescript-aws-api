@@ -34,18 +34,19 @@ const serverlessConfiguration: Serverless = {
     ]
   },
   functions: {
-    hello: {
-      handler: 'handler.hello',
+    getCityInfo: {
+      handler: 'lambdas/getCityInfo.handler',
       events: [
         {
           http: {
-            path: 'translate',
-            method: 'POST',
+            path: 'get-city/{city}',
+            method: 'GET',
             cors: true
           }
         }
       ]
     }
+
   }
 }
 
