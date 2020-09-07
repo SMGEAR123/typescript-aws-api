@@ -25,6 +25,13 @@ const serverlessConfiguration: Serverless = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
     },
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: ['translate:*'],
+        Resource: '*'
+      }
+    ]
   },
   functions: {
     hello: {
@@ -32,8 +39,9 @@ const serverlessConfiguration: Serverless = {
       events: [
         {
           http: {
-            method: 'get',
-            path: 'hello',
+            method: 'translate',
+            path: 'POST',
+            cors: true
           }
         }
       ]

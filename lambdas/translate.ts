@@ -25,7 +25,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         };
 
         const translatedMessage = await translate.translateText(translateParams).promise();
-
+        console.log("Translated Message", translatedMessage);
         return apiResponses._200({ translatedMessage });
 
     } catch (error) {
