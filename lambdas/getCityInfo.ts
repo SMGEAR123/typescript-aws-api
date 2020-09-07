@@ -1,8 +1,9 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
+import { APIGatewayProxyHandler, APIGatewayProxyEvent } from 'aws-lambda';
 import 'source-map-support/register';
+import apiResponses from './common/apiResponses';
 
-export const hello: APIGatewayProxyHandler = async (event, _context) => {
-    const city = event.pathParameter?.city;
+export const hello: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent, _context) => {
+    const city = event['pathParameter']?.city;
 
     if(!city || !cityData[city]) {
         return apiResponses._400({ message: 'missing city or no data for that city' });
@@ -11,22 +12,22 @@ export const hello: APIGatewayProxyHandler = async (event, _context) => {
     return apiResponses._200(cityData[city]);
 }
 
-const apiResponses = {
-    _200: (body: { [key: string]: any }) => {
-        console.log("body", body);
-        console.log("JSON body", JSON.stringify(body, null, 2))
-        return {
-            statusCode: 200,
-            body: JSON.stringify(body, null, 2),
-        };
-    },
-    _400: (body: { [key: string]: any }) => {
-        return {
-            statusCode: 400,
-            body: JSON.stringify(body, null, 2),
-        };
-    },
-};
+// const apiResponses = {
+//     _200: (body: { [key: string]: any }) => {
+//         console.log("body", body);
+//         console.log("JSON body", JSON.stringify(body, null, 2))
+//         return {
+//             statusCode: 200,
+//             body: JSON.stringify(body, null, 2),
+//         };
+//     },
+//     _400: (body: { [key: string]: any }) => {
+//         return {
+//             statusCode: 400,
+//             body: JSON.stringify(body, null, 2),
+//         };
+//     },
+// };
 
 interface CityData {
     name: string;
