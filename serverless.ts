@@ -39,8 +39,8 @@ const serverlessConfiguration: Serverless = {
       events: [
         {
           http: {
-            method: 'translate',
-            path: 'POST',
+            path: 'translate',
+            method: 'POST',
             cors: true
           }
         }
